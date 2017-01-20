@@ -1,0 +1,8 @@
+hive_server_process 3
+ambari_server_stale_alerts 2
+namenode_ha_health 2
+datanode_health_summary 2
+hive_metastore_process 2
+ambari_server_agent_heartbeat 2
+upgrade_finalized_state 9999
+namenode_last_checkpoint 9999
