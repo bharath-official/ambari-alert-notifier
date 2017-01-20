@@ -5,7 +5,9 @@ import os
 import subprocess
 from subprocess import Popen
 
-
+#Prerequisites
+#Configure mail subsystem on your headnodehost.
+#sudo apt-get install mailutils
 
 criticalAlertsJsonFile = '/tmp/critical_alerts.json'
 unknownAlertsJsonFile = '/tmp/unknown_alerts.json'
@@ -13,8 +15,10 @@ warningAlertsJsonFile = '/tmp/warning_alerts.json'
 sentCriticalJsonFile = '/tmp/sent_critical_list.json'
 sentWarningJsonFile = '/tmp/sent_warning_list.json'
 sentUnknownJsonFile = '/tmp/sent_unknown_list.json'
-ignoreListFile = '/home/flash/ambari-alert-notifier/ignore_list'
-emailAddress="bhvenkat@microsoft.com"
+ignoreListFile = '/tmp/ignore_list'
+
+#Replace this with the email address where you want notifications.
+emailAddress="microsoftsample@microsoft.com"
 criticalList = []
 unknownList = []
 warningList = []
@@ -168,7 +172,8 @@ def main():
     sentUnknownJson = loadPrevJsonFromFile(sentUnknownJsonFile)
     sentWarningJson = loadPrevJsonFromFile(sentWarningJsonFile)
 
-    r = requests.get('http://headnodehost:8080/api/v1/clusters/bvsparkhue/alerts?Alert/state!=OK', auth=('admin', '8Q5QQc70-A0i8{X'))
+    # Replace hdinsightsample with your cluster name and auth admin SamplePassword with your admin username and password.
+    r = requests.get('http://headnodehost:8080/api/v1/clusters/hdinsightsample/alerts?Alert/state!=OK', auth=('admin', 'SamplePassword'))
     alerts = r.json()["items"]
     loadCurrentAlerts(alerts)
     raiseAlerts(prevCriticalJson, criticalList, sentCriticalJson, sentCriticalJsonFile)
